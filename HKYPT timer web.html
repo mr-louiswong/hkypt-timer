@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HKYPT Physics Fight Timer</title>
@@ -14,6 +16,9 @@
         .timer-row {
             transition: background-color 0.3s ease;
         }
+        .progress-bar {
+            transition: width 1s linear;
+        }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen p-4">
@@ -25,68 +30,109 @@
 
         <div class="bg-white rounded-lg shadow-lg p-6">
             <div class="grid gap-4">
-                <div class="timer-row p-4 rounded-lg bg-gray-50 grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center">
-                    <div class="font-semibold">Presentation of the report</div>
-                    <div class="text-center">12:00</div>
-                    <div class="remaining text-center font-mono text-xl">12:00</div>
-                    <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
-                    <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
-                </div>
-                
-                <div class="timer-row p-4 rounded-lg bg-gray-50 grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center">
-                    <div class="font-semibold">Questions of the Opponent to the Reporter and answers of the Reporter</div>
-                    <div class="text-center">2:00</div>
-                    <div class="remaining text-center font-mono text-xl">2:00</div>
-                    <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
-                    <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                <!-- Each timer row now includes a progress bar -->
+                <div class="timer-row p-4 rounded-lg bg-gray-50">
+                    <div class="grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center mb-2">
+                        <div class="font-semibold">Presentation of the report</div>
+                        <div class="text-center">12:00</div>
+                        <div class="remaining text-center font-mono text-xl">12:00</div>
+                        <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
+                        <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                    </div>
+                    <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div class="progress-bar h-full bg-blue-500 w-full"></div>
+                    </div>
                 </div>
 
-                <div class="timer-row p-4 rounded-lg bg-gray-50 grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center">
-                    <div class="font-semibold">Preparation of the Opponent</div>
-                    <div class="text-center">3:00</div>
-                    <div class="remaining text-center font-mono text-xl">3:00</div>
-                    <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
-                    <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                <div class="timer-row p-4 rounded-lg bg-gray-50">
+                    <div class="grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center mb-2">
+                        <div class="font-semibold">Questions of the Opponent to the Reporter and answers of the Reporter</div>
+                        <div class="text-center">2:00</div>
+                        <div class="remaining text-center font-mono text-xl">2:00</div>
+                        <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
+                        <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                    </div>
+                    <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div class="progress-bar h-full bg-blue-500 w-full"></div>
+                    </div>
                 </div>
 
-                <div class="timer-row p-4 rounded-lg bg-gray-50 grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center">
-                    <div class="font-semibold">The Opponent takes the floor (Max  4 mins) and discussion between the Reporter and the Opponent</div>
-                    <div class="text-center">14:00</div>
-                    <div class="remaining text-center font-mono text-xl">14:00</div>
-                    <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
-                    <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                <div class="timer-row p-4 rounded-lg bg-gray-50">
+                    <div class="grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center mb-2">
+                        <div class="font-semibold">Preparation of the Opponent</div>
+                        <div class="text-center">3:00</div>
+                        <div class="remaining text-center font-mono text-xl">3:00</div>
+                        <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
+                        <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                    </div>
+                    <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div class="progress-bar h-full bg-blue-500 w-full"></div>
+                    </div>
                 </div>
 
-                <div class="timer-row p-4 rounded-lg bg-gray-50 grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center">
-                    <div class="font-semibold">The Opponent summarizes the discussion</div>
-                    <div class="text-center">1:00</div>
-                    <div class="remaining text-center font-mono text-xl">1:00</div>
-                    <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
-                    <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                <div class="timer-row p-4 rounded-lg bg-gray-50">
+                    <div class="grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center mb-2">
+                        <div class="font-semibold">The Opponent takes the floor and discussion between the Reporter and the Opponent</div>
+                        <div class="text-center">14:00</div>
+                        <div class="remaining text-center font-mono text-xl">14:00</div>
+                        <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
+                        <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                    </div>
+                    <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div class="progress-bar h-full bg-blue-500 w-full"></div>
+                    </div>
                 </div>
 
-                <div class="timer-row p-4 rounded-lg bg-gray-50 grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center">
-                    <div class="font-semibold">Questions of the Jury</div>
-                    <div class="text-center">5:00</div>
-                    <div class="remaining text-center font-mono text-xl">5:00</div>
-                    <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
-                    <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                <div class="timer-row p-4 rounded-lg bg-gray-50">
+                    <div class="grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center mb-2">
+                        <div class="font-semibold">The Opponent summarizes the discussion</div>
+                        <div class="text-center">1:00</div>
+                        <div class="remaining text-center font-mono text-xl">1:00</div>
+                        <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
+                        <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                    </div>
+                    <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div class="progress-bar h-full bg-blue-500 w-full"></div>
+                    </div>
                 </div>
 
-                <div class="timer-row p-4 rounded-lg bg-gray-50 grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center">
-                    <div class="font-semibold">All jurors writing comments</div>
-                    <div class="text-center">5:00</div>
-                    <div class="remaining text-center font-mono text-xl">5:00</div>
-                    <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
-                    <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                <div class="timer-row p-4 rounded-lg bg-gray-50">
+                    <div class="grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center mb-2">
+                        <div class="font-semibold">Questions of the Jury</div>
+                        <div class="text-center">5:00</div>
+                        <div class="remaining text-center font-mono text-xl">5:00</div>
+                        <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
+                        <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                    </div>
+                    <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div class="progress-bar h-full bg-blue-500 w-full"></div>
+                    </div>
                 </div>
 
-                <div class="timer-row p-4 rounded-lg bg-gray-50 grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center">
-                    <div class="font-semibold">Open scoring</div>
-                    <div class="text-center">5:00</div>
-                    <div class="remaining text-center font-mono text-xl">5:00</div>
-                    <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
-                    <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                <div class="timer-row p-4 rounded-lg bg-gray-50">
+                    <div class="grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center mb-2">
+                        <div class="font-semibold">All jurors writing comments</div>
+                        <div class="text-center">5:00</div>
+                        <div class="remaining text-center font-mono text-xl">5:00</div>
+                        <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
+                        <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                    </div>
+                    <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div class="progress-bar h-full bg-blue-500 w-full"></div>
+                    </div>
+                </div>
+
+                <div class="timer-row p-4 rounded-lg bg-gray-50">
+                    <div class="grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center mb-2">
+                        <div class="font-semibold">Open scoring</div>
+                        <div class="text-center">5:00</div>
+                        <div class="remaining text-center font-mono text-xl">5:00</div>
+                        <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
+                        <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                    </div>
+                    <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div class="progress-bar h-full bg-blue-500 w-full"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -99,6 +145,7 @@
             let timeRemainingEl = timerRow.querySelector('.remaining');
             let startPauseBtn = timerRow.querySelector('.start-pause');
             let resetBtn = timerRow.querySelector('.reset');
+            let progressBar = timerRow.querySelector('.progress-bar');
             let initialTime = timeRemainingEl.textContent;
             let [minutes, seconds] = initialTime.split(':').map(Number);
             let totalSeconds = minutes * 60 + seconds;
@@ -110,6 +157,22 @@
                 const mins = Math.floor(remainingSeconds / 60);
                 const secs = remainingSeconds % 60;
                 timeRemainingEl.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+                
+                // Update progress bar
+                const progressPercentage = (remainingSeconds / totalSeconds) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+                
+                // Update progress bar color based on remaining time
+                if (progressPercentage <= 25) {
+                    progressBar.classList.remove('bg-blue-500', 'bg-yellow-500');
+                    progressBar.classList.add('bg-red-500');
+                } else if (progressPercentage <= 50) {
+                    progressBar.classList.remove('bg-blue-500', 'bg-red-500');
+                    progressBar.classList.add('bg-yellow-500');
+                } else {
+                    progressBar.classList.remove('bg-yellow-500', 'bg-red-500');
+                    progressBar.classList.add('bg-blue-500');
+                }
             }
 
             startPauseBtn.addEventListener('click', () => {
@@ -156,6 +219,5 @@
             });
         });
     </script>
-
-
-</body></html>
+</body>
+</html>
