@@ -1,0 +1,161 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HKYPT Physics Fight Timer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes flash {
+            0%, 100% { background-color: rgb(254 226 226); }
+            50% { background-color: rgb(254 202 202); }
+        }
+        .flash-red {
+            animation: flash 1s infinite;
+        }
+        .timer-row {
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-4">
+    <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Hong Kong Young Physicists' Tournament</h1>
+            <h2 class="text-3xl font-semibold text-gray-700">Physics Fight Timer</h2>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div class="grid gap-4">
+                <div class="timer-row p-4 rounded-lg bg-gray-50 grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center">
+                    <div class="font-semibold">Presentation of the report</div>
+                    <div class="text-center">12:00</div>
+                    <div class="remaining text-center font-mono text-xl">12:00</div>
+                    <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
+                    <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                </div>
+                
+                <div class="timer-row p-4 rounded-lg bg-gray-50 grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center">
+                    <div class="font-semibold">Questions of the Opponent to the Reporter and answers of the Reporter</div>
+                    <div class="text-center">2:00</div>
+                    <div class="remaining text-center font-mono text-xl">2:00</div>
+                    <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
+                    <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                </div>
+
+                <div class="timer-row p-4 rounded-lg bg-gray-50 grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center">
+                    <div class="font-semibold">Preparation of the Opponent</div>
+                    <div class="text-center">3:00</div>
+                    <div class="remaining text-center font-mono text-xl">3:00</div>
+                    <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
+                    <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                </div>
+
+                <div class="timer-row p-4 rounded-lg bg-gray-50 grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center">
+                    <div class="font-semibold">The Opponent takes the floor and discussion between the Reporter and the Opponent</div>
+                    <div class="text-center">14:00</div>
+                    <div class="remaining text-center font-mono text-xl">14:00</div>
+                    <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
+                    <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                </div>
+
+                <div class="timer-row p-4 rounded-lg bg-gray-50 grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center">
+                    <div class="font-semibold">The Opponent summarizes the discussion</div>
+                    <div class="text-center">1:00</div>
+                    <div class="remaining text-center font-mono text-xl">1:00</div>
+                    <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
+                    <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                </div>
+
+                <div class="timer-row p-4 rounded-lg bg-gray-50 grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center">
+                    <div class="font-semibold">Questions of the Jury</div>
+                    <div class="text-center">5:00</div>
+                    <div class="remaining text-center font-mono text-xl">5:00</div>
+                    <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
+                    <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                </div>
+
+                <div class="timer-row p-4 rounded-lg bg-gray-50 grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center">
+                    <div class="font-semibold">All jurors writing comments</div>
+                    <div class="text-center">5:00</div>
+                    <div class="remaining text-center font-mono text-xl">5:00</div>
+                    <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
+                    <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                </div>
+
+                <div class="timer-row p-4 rounded-lg bg-gray-50 grid grid-cols-[2fr,1fr,1fr,auto,auto] gap-4 items-center">
+                    <div class="font-semibold">Open scoring</div>
+                    <div class="text-center">5:00</div>
+                    <div class="remaining text-center font-mono text-xl">5:00</div>
+                    <button class="start-pause px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Start</button>
+                    <button class="reset px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const beepSound = new Audio("data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAGDgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCBcH3Cc+CDv/7xA4Tvh9Rz/y8QADBwMWgQAZG/ILNAARQ4GLTcDeIIIhxGOBAuD7hOfBB3/94gcJ3w+o5/5eIAIAAAVwWgQAVQ2ORaIQwEMAJiDg95G4nQL7mQVWI6GwRcfsZAcsKkJvxgxEjzFUgfHoSQ9Qq7KNwqHwuB13MA4a1q/DmBrHgPcmjiGoh//EwC5nGPEmS4RcfkVKOhJf+WOgoxJclFz3kgn//dBA+ya1GhurNn8zb//9NNutNuhz31f////9vt///z+IdAEAAAK4LQIAKobHItEIYCGAExBwe8jcToF9zIKrEdDYIuP2MgOWFSE34wYiR5iqQPj0JIeoVdlG4VD4XA67mAcNa1fhzA1jwHuTRxDUQ//iYBczjHiTJcIuPyKlHQkv/LHQUYkuSi57yQT//uggfZNajQ3Vmz+Zt//+mm3Wm3Q576v////+32///5/EOgAAADVghQAAAAA//uQZAUAB1WI0PZugAAAAAoQwAAAEk3nRd2qAAAAACiDgAAAAAAABCqEEQRLCgwpBGMlJkIz8jKhGvj4k6jzRnqasNKIeoh5gI7BJaC1A1AoNBjJgbyApVS4IDlZgDU5WUAxEKDNmmALHzZp0Fkz1FMTmGFl1FMEyodIavcCAUHDWrKAIA4aa2oCgILEBupZgHvAhEBcZ6joQBxS76AgccrFlczBvKLC0QI2cBoCFvfTDAo7eoOQInqDPBtvrDEZBNYN5xwNwxQRfw8ZQ5wQVLvO8OYU+mHvFLlDh05Mdg7BT6YrRPpCBznMB2r//xKJjyyOh+cImr2/4doscwD6neZjuZR4AgAABYAAAABy1xcdQtxYBYYZdifkUDgzzXaXn98Z0oi9ILU5mBjFANmRwlVJ3/6jYDAmxaiDG3/6xjQQCCKkRb/6kg/wW+kSJ5//rLobkLSiKmqP/0ikJuDaSaSf/6JiLYLEYnW/+kXg1WRVJL/9EmQ1YZIsv/6Qzwy5qk7/+tEU0nkls3/zIUMPKNX/6yZLf+kFgAfgGyLFAUwY//uQZAUABcd5UiNPVXAAAApAAAAAE0VZQKw9ISAAACgAAAAAVQIygIElVrFkBS+Jhi+EAuu+lKAkYUEIsmEAEoMeDmCETMvfSHTGkF5RWH7kz/ESHWPAq/kcCRhqBtMdokPdM7vil7RG98A2sc7zO6ZvTdM7pmOUAZTnJW+NXxqmd41dqJ6mLTXxrPpnV8avaIf5SvL7pndPvPpndJR9Kuu8fePvuiuhorgWjp7Mf/PRjxcFCPDkW31srioCExivv9lcwKEaHsf/7ow2Fl1T/9RkXgEhYElAoCLFtMArxwivDJJ+bR1HTKJdlEoTELCIqgEwVGSQ+hIm0NbK8WXcTEI0UPoa2NbG4y2K00JEWbZavJXkYaqo9CRHS55FcZTjKEk3NKoCYUnSQ0rWxrZbFKbKIhOKPZe1cJKzZSaQrIyULHDZmV5K4xySsDRKWOruanGtjLJXFEmwaIbDLX0hIPBUQPVFVkQkDoUNfSoDgQGKPekoxeGzA4DUvnn4bxzcZrtJyipKfPNy5w+9lnXwgqsiyHNeSVpemw4bWb9psYeq//uQZBoABQt4yMVxYAIAAAkQoAAAHvYpL5m6AAgAACXDAAAAD59jblTirQe9upFsmZbpMudy7Lz1X1DYsxOOSWpfPqNX2WqktK0DMvuGwlbNj44TleLPQ+Gsfb+GOWOKJoIrWb3cIMeeON6lz2umTqMXV8Mj30yWPpjoSa9ujK8SyeJP5y5mOW1D6hvLepeveEAEDo0mgCRClOEgANv3B9a6fikgUSu/DmAMATrGx7nng5p5iimPNZsfQLYB2sDLIkzRKZOHGAaUyDcpFBSLG9MCQALgAIgQs2YunOszLSAyQYPVC2YdGGeHD2dTdJk1pAHGAWDjnkcLKFymS3RQZTInzySoBwMG0QueC3gMsCEYxUqlrcxK6k1LQQcsmyYeQPdC2YfuGPASCBkcVMQQqpVJshui1tkXQJQV0OXGAZMXSOEEBRirXbVRQW7ugq7IM7rPWSZyDlM3IuNEkxzCOJ0ny2ThNkyRai1b6ev//3dzNGzNb//4uAvHT5sURcZCFcuKLhOFs8mLAAEAt4UWAAIABAAAAAB4qbHo0tIjVkUU//uQZAwABfSFz3ZqQAAAAAngwAAAE1HjMp2qAAAAACZDgAAAD5UkTE1UgZEUExqYynN1qZvqIOREEFmBcJQkwdxiFtw0qEOkGYfRDifBui9MQg4QAHAqWtAWHoCxu1Yf4VfWLPIM2mHDFsbQEVGwyqQoQcwnfHeIkNt9YnkiaS1oizycqJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=");
+
+        document.querySelectorAll('.timer-row').forEach(timerRow => {
+            let timeRemainingEl = timerRow.querySelector('.remaining');
+            let startPauseBtn = timerRow.querySelector('.start-pause');
+            let resetBtn = timerRow.querySelector('.reset');
+            let initialTime = timeRemainingEl.textContent;
+            let [minutes, seconds] = initialTime.split(':').map(Number);
+            let totalSeconds = minutes * 60 + seconds;
+            let remainingSeconds = totalSeconds;
+            let interval;
+            let isRunning = false;
+
+            function updateDisplay() {
+                const mins = Math.floor(remainingSeconds / 60);
+                const secs = remainingSeconds % 60;
+                timeRemainingEl.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+            }
+
+            startPauseBtn.addEventListener('click', () => {
+                if (isRunning) {
+                    // Pause
+                    clearInterval(interval);
+                    startPauseBtn.textContent = 'Start';
+                    timerRow.classList.remove('bg-green-100');
+                    timerRow.classList.add('bg-gray-50');
+                    timerRow.classList.remove('flash-red');
+                    isRunning = false;
+                } else {
+                    // Start
+                    timerRow.classList.remove('bg-gray-50');
+                    timerRow.classList.add('bg-green-100');
+                    timerRow.classList.remove('flash-red');
+                    startPauseBtn.textContent = 'Pause';
+                    isRunning = true;
+                    interval = setInterval(() => {
+                        if (remainingSeconds > 0) {
+                            remainingSeconds--;
+                            updateDisplay();
+                        } else {
+                            clearInterval(interval);
+                            beepSound.play();
+                            timerRow.classList.remove('bg-green-100');
+                            timerRow.classList.add('flash-red');
+                            startPauseBtn.textContent = 'Start';
+                            isRunning = false;
+                        }
+                    }, 1000);
+                }
+            });
+
+            resetBtn.addEventListener('click', () => {
+                clearInterval(interval);
+                remainingSeconds = totalSeconds;
+                updateDisplay();
+                startPauseBtn.textContent = 'Start';
+                timerRow.classList.remove('bg-green-100');
+                timerRow.classList.remove('flash-red');
+                timerRow.classList.add('bg-gray-50');
+                isRunning = false;
+            });
+        });
+    </script>
+
+
+</body></html>
