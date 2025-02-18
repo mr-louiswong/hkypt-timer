@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HKYPT Physics Fight Timer</title>
+    <title>HKYPT Physics Fight Timer v1.41</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @keyframes flash {
@@ -198,50 +198,63 @@ document.querySelectorAll('.timer-row').forEach(timerRow => {
     let isRunning = false;
 
     function updateDisplay() {
-        if (!isRunning) return;
+    if (!isRunning) return;
 
-        // Calculate remaining time based on actual elapsed time, accounting for paused time
-        const now = Date.now();
-        const actualElapsedSeconds = Math.floor((now - startTime) / 1000);
-        remainingSeconds = totalSeconds - actualElapsedSeconds;
-
-        // Check if we need to end the timer
-        if (remainingSeconds <= 0) {
-            remainingSeconds = 0;
-            stopTimer();
-            if (soundEnabled) beepSound.play();
-            timerRow.classList.remove('bg-green-100');
-            timerRow.classList.add('flash-red');
-            return;
-        }
-
-        // Update display
-        const mins = Math.floor(remainingSeconds / 60);
-        const secs = remainingSeconds % 60;
-        timeRemainingEl.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
-        
-        // Update progress bar
-        const progressPercentage = (remainingSeconds / totalSeconds) * 100;
-        progressBar.style.width = `${progressPercentage}%`;
-        
-        // Update progress bar color and add warning effects
-        if (progressPercentage <= 25) {
-            progressBar.classList.remove('bg-blue-500', 'bg-yellow-500');
-            progressBar.classList.add('bg-red-500');
-            timeRemainingEl.classList.add('blink');
-        } else if (progressPercentage <= 50) {
-            progressBar.classList.remove('bg-blue-500', 'bg-red-500');
-            progressBar.classList.add('bg-yellow-500');
-            timeRemainingEl.classList.remove('blink');
-        } else {
-            progressBar.classList.remove('bg-yellow-500', 'bg-red-500');
-            progressBar.classList.add('bg-blue-500');
-            timeRemainingEl.classList.remove('blink');
-        }
-
-        // Request next frame
-        animationFrameId = requestAnimationFrame(updateDisplay);
+    // Calculate remaining time based on actual elapsed time
+    const now = Date.now();
+    
+    // Handle tab switching by checking time difference
+    const timeDiff = now - lastUpdateTime;
+    if (timeDiff > 1000) {
+        startTime += timeDiff;
     }
+    lastUpdateTime = now;
+
+    const actualElapsedSeconds = Math.floor((now - startTime) / 1000);
+    remainingSeconds = totalSeconds - actualElapsedSeconds;
+
+    // Prevent negative values - MOVED THIS CHECK EARLIER
+    if (remainingSeconds <= 0) {
+        remainingSeconds = 0;
+        const mins = 0;
+        const secs = 0;
+        timeRemainingEl.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+        progressBar.style.width = '0%';
+        progressBar.classList.remove('bg-blue-500', 'bg-yellow-500');
+        progressBar.classList.add('bg-red-500');
+        stopTimer();
+        if (soundEnabled) beepSound.play();
+        timerRow.classList.remove('bg-green-100');
+        timerRow.style.backgroundColor = '#fee2e2'; // Static light red background
+        return;
+    }
+
+    // Update display
+    const mins = Math.floor(remainingSeconds / 60);
+    const secs = remainingSeconds % 60;
+    timeRemainingEl.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+    
+    // Update progress bar
+    const progressPercentage = (remainingSeconds / totalSeconds) * 100;
+    progressBar.style.width = `${progressPercentage}%`;
+    
+    // Update progress bar color and add warning effects
+    if (progressPercentage <= 25) {
+        progressBar.classList.remove('bg-blue-500', 'bg-yellow-500');
+        progressBar.classList.add('bg-red-500');
+        timeRemainingEl.classList.add('blink');
+    } else if (progressPercentage <= 50) {
+        progressBar.classList.remove('bg-blue-500', 'bg-red-500');
+        progressBar.classList.add('bg-yellow-500');
+        timeRemainingEl.classList.remove('blink');
+    } else {
+        progressBar.classList.remove('bg-yellow-500', 'bg-red-500');
+        progressBar.classList.add('bg-blue-500');
+        timeRemainingEl.classList.remove('blink');
+    }
+
+    animationFrameId = requestAnimationFrame(updateDisplay);
+}
 
     function startTimer() {
         isRunning = true;
