@@ -185,27 +185,17 @@
             let totalSeconds = minutes * 60 + seconds;
             let remainingSeconds = totalSeconds;
             let startTime;
-            let lastUpdateTime;
-            let animationFrameId;
+            let intervalId = null;
             let isRunning = false;
 
             function updateDisplay() {
                 if (!isRunning) return;
 
-                // Calculate remaining time based on actual elapsed time
                 const now = Date.now();
-                
-                // Handle tab switching by checking time difference
-                const timeDiff = now - lastUpdateTime;
-                if (timeDiff > 1000) {
-                    startTime += timeDiff;
-                }
-                lastUpdateTime = now;
-
                 const actualElapsedSeconds = Math.floor((now - startTime) / 1000);
                 remainingSeconds = totalSeconds - actualElapsedSeconds;
 
-                // Prevent negative values - MOVED THIS CHECK EARLIER
+                // Prevent negative values
                 if (remainingSeconds <= 0) {
                     remainingSeconds = 0;
                     const mins = 0;
@@ -217,7 +207,7 @@
                     stopTimer();
                     if (soundEnabled) beepSound.play();
                     timerRow.classList.remove('bg-green-100');
-                    timerRow.style.backgroundColor = '#fee2e2'; // Static light red background
+                    timerRow.style.backgroundColor = '#fee2e2';
                     return;
                 }
 
@@ -244,24 +234,26 @@
                     progressBar.classList.add('bg-blue-500');
                     timeRemainingEl.classList.remove('blink');
                 }
-
-                animationFrameId = requestAnimationFrame(updateDisplay);
             }
 
             function startTimer() {
                 isRunning = true;
                 startTime = Date.now() - ((totalSeconds - remainingSeconds) * 1000);
-                lastUpdateTime = Date.now();
                 timerRow.classList.remove('bg-gray-50');
                 timerRow.style.backgroundColor = '';
                 timerRow.classList.add('bg-green-100');
                 startPauseBtn.textContent = 'Pause';
+                
+                // Use setInterval instead of requestAnimationFrame
+                intervalId = setInterval(updateDisplay, 100); // Update every 100ms for smooth progress
                 updateDisplay();
             }
 
             function stopTimer() {
                 isRunning = false;
-                cancelAnimationFrame(animationFrameId);
+                clearInterval(intervalId);
+                intervalId = null;
+                
                 const now = Date.now();
                 const actualElapsedSeconds = Math.floor((now - startTime) / 1000);
                 remainingSeconds = Math.max(0, totalSeconds - actualElapsedSeconds);
